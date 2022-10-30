@@ -1,5 +1,5 @@
 const { Schema, model, pluralize } = require("mongoose");
-pluralize(null);
+// pluralize(null);
 
 const bcrypt = require("bcrypt");
 const saltRounds = 10;
@@ -25,6 +25,16 @@ const userScheme = Schema(
       type: String,
       default: "",
     },
+    contactUser: {
+      type: Array,
+      default: [],
+      ref:"contact"
+    },
+    noteUser: {
+      type: Array,
+      default: [],
+      ref:"note"
+    }
   },
   {
     versionKey: false,

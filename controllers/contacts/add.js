@@ -1,17 +1,31 @@
 const Contact = require("../../models/contact");
-
+const User=require("../../models/users")
 const add = async (req, res) => {
   const {
     body,
-    user: { userId },
+    user: { _id },
   } = req;
 
-  const result = await Contact.create({
+   Contact.create({
     favorite: false,
     ...body,
-    owner: userId,
+    owner: _id,
+   }).then(resContact => {
+     if (resContact) {
+       User.findByIdAndUpdate(_id, { $push: { contactUser: resContact._id } })
+         .then(user => {
+       
+         if (user) {
+           res.status(201).json(resContact);
+         }
+         else {
+           res.status(404).json({message:"Not created"});
+         }
+      }) 
+      
+    }
   });
-  res.status(201).json(result);
+
 };
 
 module.exports = add;

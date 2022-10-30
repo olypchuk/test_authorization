@@ -31,6 +31,6 @@ const contactScheme = Schema(
 
 contactScheme.post("save", handleSaveErrors);
 
-const Contact = model("contacts", contactScheme);
+const Contact = model("contact", contactScheme);
 
 module.exports = Contact;
